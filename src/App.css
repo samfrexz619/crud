@@ -1,0 +1,53 @@
+.input {
+  border: 1px solid #133E53;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 7px 10px;
+}
+
+.input input {
+  width: 100%;
+  background: inherit;
+  border: none;
+  outline: none;
+}
+
+input, textarea {
+  outline: none;
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.4); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.search__content {
+  border-radius: 16px;
+  box-shadow: 0px 2px 6px 2px rgba(7, 8, 8, 0.15), 0px 1px 2px 0px rgba(7, 8, 8, 0.30);
+  background: #FCFEFF;
+  width: 100%;
+  z-index: 100;
+  max-height: 174px;
+  position: absolute;
+  top: 4rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
