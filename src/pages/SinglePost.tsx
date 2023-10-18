@@ -1,5 +1,6 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi'
+import { BiArrowBack } from 'react-icons/bi'
 import { useState } from 'react';
 import { MdDelete } from 'react-icons/md'
 import PostTime from "@/features/posts/PostTime";
@@ -9,6 +10,8 @@ import EditPost from '@/features/posts/EditPost';
 
 
 const SinglePost = () => {
+
+  const navigate = useNavigate()
 
   const { postId } = useParams()
 
@@ -37,22 +40,26 @@ const SinglePost = () => {
   }
 
   return ( 
-    <main className='w-full px-8 py-4'>
-      <div className="text-white p-4 border-2 border-solid border-white rounded-lg py-5">
-        <h3 className="font-bold">{ postDetail.title }</h3>
-        <p className="py-3">{ postDetail.body }</p>
-        <div className="flex w-full justify-between py-3">
-          <PostTime timeStamp={postDetail.date} />
-          <div className="flex gap-x-3">
-            <button onClick={openModal} className="cursor-pointer">
-              <FiEdit  />
-            </button>
-            <button onClick={ ()=> handleDelete(postDetail.id)} className="cursor-pointer">
-              <MdDelete  />
-            </button>
+    <main className='w-full px-12 py-7'>
+      <button onClick={()=> navigate('/')} className='bg-gray-200 px-4 py-2 mb-4 rounded-lg text-pry'>
+        <BiArrowBack  />
+      </button>
+      <div className='py-20'>
+        <div className="text-white px-4 border-2 border-solid border-white rounded-lg py-5">
+          <h3 className="font-bold">{ postDetail.title }</h3>
+          <p className="py-3">{ postDetail.body }</p>
+          <div className="flex w-full justify-between py-3">
+            <PostTime timeStamp={postDetail.date} />
+            <div className="flex gap-x-3">
+              <button onClick={openModal} className="cursor-pointer">
+                <FiEdit  />
+              </button>
+              <button onClick={ ()=> handleDelete(postDetail.id)} className="cursor-pointer">
+                <MdDelete  />
+              </button>
+            </div>
           </div>
         </div>
-          <NavLink to={postDetail.id}>more</NavLink>
       </div>
       {close && <EditPost openModal={openModal} post={postDetail} />}
     </main>
