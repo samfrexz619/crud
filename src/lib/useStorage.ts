@@ -1,5 +1,4 @@
 import { useState, useEffect, } from "react";
-// import { Posts } from "./types";
 
 
 function useLocalStorage<T>(key: string, initialValue: T){
@@ -9,7 +8,7 @@ function useLocalStorage<T>(key: string, initialValue: T){
   const [value, setValue] = useState<T[]>(()=> {
     if(storedValue !== null){
       try {
-        return JSON.parse(storedValue)
+        return JSON.parse(storedValue) 
       } catch(error) {
         console.log(error)
       }
