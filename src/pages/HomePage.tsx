@@ -1,13 +1,12 @@
 import { useAppSelector } from "@/app/hooks"
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
+import { useState } from "react"
 import AddPost from "@/features/posts/AddPost"
 import PostItems from "@/features/posts/Posts"
 import SearchInput from "@/features/posts/SearchInput"
-import { useState } from "react"
 import { Posts } from "@/lib/types"
+// import { createPost } from "@/features/posts/postSlice"
 // import { selectPostById } from "@/features/posts/postSlice"
-
-
 
 
 
@@ -15,15 +14,34 @@ const HomePage = () => {
 
   const posts = useAppSelector(state => state.posts.posts)
 
-  const { postId } = useParams()
+  // const dispatch = useAppDispatch()
 
-  // const postNum = useAppSelector(state => selectPostById(state, Number(postId)))
-
-  const orderedPosts = posts?.slice()?.sort((a, b) => b.date.localeCompare(a.date))
-
+  // const { postId } = useParams()
+  
   const [searchTitle, setSearchTitle] = useState<Posts[]>([])
 
-  console.log(postId)
+  const [input, setInput] = useState({
+    title: '',
+    text: '',
+  })
+
+  const handleChange =(e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=> {
+    const { name, value } = e.target
+    setInput((prevItem) => ({...prevItem, [name]: value}))
+  }
+    
+  // const orderedPosts = posts?.slice()?.sort((a, b) => b.date.localeCompare(a.date))
+
+  // useEffect(()=> {
+  //   const storedPosts = localStorage.getItem('posts')
+  //   if(storedPosts) {
+  //     dispatch(createPost(JSON.parse(storedPosts)))
+  //   }
+  // },[dispatch])
+
+  // useEffect(()=> {
+  //   localStorage.setItem('posts', JSON.stringify(posts))
+  // },[posts])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>)=> {
     const titleInput = e.target.value
@@ -37,11 +55,11 @@ const HomePage = () => {
         <SearchInput handleSearch={handleSearch} searchItem={searchTitle} />
       </div>
       <div>
-        <AddPost  />
+        <AddPost handleTextInput={handleChange} setTextInput={setInput} textInput={input} />
       </div>
       <div className="w-full">
         {
-          orderedPosts.map(post => (
+          posts?.map(post => (
             <PostItems key={post.id} post={post} />
           ))
         }

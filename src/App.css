@@ -1,3 +1,8 @@
+:root {
+  --toastify-color-dark: #133E53;
+  --toastify-text-color-info: #E6EBED;
+}
+
 .input {
   border: 1px solid #133E53;
   width: 100%;
@@ -45,9 +50,11 @@ input, textarea {
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+.search__content::-webkit-scrollbar {
+  display: none;
 }

@@ -7,6 +7,7 @@ import PostTime from "@/features/posts/PostTime";
 import { deletePost } from '@/features/posts/postSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import EditPost from '@/features/posts/EditPost';
+import useLocalStorage from '@/lib/useStorage';
 
 
 const SinglePost = () => {
@@ -19,13 +20,17 @@ const SinglePost = () => {
 
   const posts = useAppSelector(state=> state.posts.posts)
 
+  const [value, setValue] = useLocalStorage('posts', posts)
+
   const dispatch = useAppDispatch()
 
   const handleDelete =(postId: string)=> {
     dispatch(deletePost(postId))
   }
 
-  const postDetail = posts.find(post => post.id === postId)
+  console.log(setValue)
+
+  const postDetail = Object.values(value).find(post => post.id === postId)
 
   if(!postDetail) {
     return(

@@ -20,7 +20,7 @@ export const postSlice = createSlice({
       state.posts = action.payload
     },
     createPost: (state, action: PayloadAction<Posts>) => {
-      state.posts.push(action.payload)
+      state.posts.unshift(action.payload)
     },
     deletePost: (state, action: PayloadAction<string>)=> {
       state.posts = state.posts.filter(post => post.id !== action.payload)

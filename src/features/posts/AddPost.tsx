@@ -1,37 +1,35 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useAppDispatch } from "@/app/hooks";
 import { createPost } from "./postSlice";
+import { Input } from "@/lib/types";
 
 
-const AddPost = () => {
+
+interface Props {
+  handleTextInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=> void;
+  textInput: Input;
+  setTextInput: Dispatch<SetStateAction<{ title: string; text: string; }>>
+}
+
+const AddPost = ({ handleTextInput, textInput, setTextInput }: Props) => {
 
   const dispatch = useAppDispatch()
 
-  const [input, setInput] = useState({
-    title: '',
-    text: '',
-  })
-
-  const handleChange =(e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=> {
-    const { name, value } = e.target
-    setInput((prevItem) => ({...prevItem, [name]: value}))
-  }
-
   const handleSubmitPost =()=> {
     const newPost = {
-      title: input.title,
-      body: input.text,
+      title: textInput.title,
+      body: textInput.text,
       id: nanoid(),
       date: new Date().toISOString()
     }
-
-    dispatch(createPost(newPost))
-
-    setInput({
-      title: '',
-      text: ''
-    })
+    if(textInput.text.trim() !== '' && textInput.title.trim() !== ''){
+      dispatch(createPost(newPost))
+      setTextInput({
+        title: '',
+        text: ''
+      })
+    }
   }
 
   return ( 
@@ -40,8 +38,8 @@ const AddPost = () => {
         <input
           type="text"
           name="title"
-          value={input.title}
-          onChange={handleChange}
+          value={textInput.title}
+          onChange={handleTextInput}
           className="w-full border-none bg-inherit text-black"
           placeholder="Enter title"
         />
@@ -49,8 +47,8 @@ const AddPost = () => {
       <div className="w-full py-2 bg-white rounded-lg px-3">
         <textarea 
           name="text" 
-          value={input.text}
-          onChange={handleChange}
+          value={textInput.text}
+          onChange={handleTextInput}
           cols={30} 
           rows={3}
           className="w-full text-black resize-none"
