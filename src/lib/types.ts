@@ -4,3 +4,8 @@ export interface Posts {
   body: string;
   date: string;
 }
+
+export interface Input {
+  title: string;
+  text: string;
+}
